@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>jquery callback 事件队列</title>
+	</head>
+	<body></body>
+</html>
+<script src="./jQuery.1.0.js"></script>
+<script>
+	/**
+	 * 一对多事件模型，调用函数，遍历每一个函数并执行
+	 */
+	// var callbacks = [function() {}, function() {}, function() {}]
+	// document.onclick = function() {
+	//     var _this = this
+	//     callbacks.forEach(function(fn) {
+	//         fn.call(_this)
+	//     })
+	// }
+
+	/**
+	 * 通过callbacks函数队列
+	 *
+	 * 方法：
+	 *  add()   添加函数
+	 *  fire()  依次执行函数
+	 *
+	 * 参数：
+	 *  once: 执行一次
+	 *  unique: 队列函数保持唯一，不重复添加
+	 *  memory: 执行一次后再次添加函数时直接执行
+	 *  stopOnfalse: 队列中如果有函数 return false 则后面的就不执行
+	 */
+
+	var cb = $.Callbacks("memory");
+	function demo() {
+		console.log("demo");
+	}
+	cb.add(demo);
+	cb.add(demo);
+	cb.fire();
+	cb.add(demo);
+</script>

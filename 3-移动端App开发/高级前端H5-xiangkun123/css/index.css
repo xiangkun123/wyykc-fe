@@ -1,0 +1,63 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.prize-box {
+	width: 300px;
+	height: 300px;
+	margin: 50px auto 0;
+	position: relative;
+}
+.prize-box .prize,
+.prize-box .btn {
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	line-height: 100px;
+	border: 1px solid #ccc;
+	position: absolute;
+}
+.prize-box .btn {
+	cursor: pointer;
+	background-color: #fff;
+}
+.prize.active {
+	background-color: #ffe5be;
+}
+.prize1 {
+	top: 0;
+	left: 0;
+}
+.prize2 {
+	top: 0;
+	left: 100px;
+}
+.prize3 {
+	top: 0;
+	left: 200px;
+}
+.prize4 {
+	top: 100px;
+	left: 200px;
+}
+.prize5 {
+	top: 200px;
+	left: 200px;
+}
+.prize6 {
+	top: 200px;
+	left: 100px;
+}
+.prize7 {
+	top: 200px;
+	left: 0;
+}
+.prize8 {
+	top: 100px;
+	left: 0;
+}
+.btn-start {
+	top: 100px;
+	left: 100px;
+}

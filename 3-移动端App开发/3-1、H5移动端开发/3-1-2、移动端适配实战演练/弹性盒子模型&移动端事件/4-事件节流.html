@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>弹性盒子模型&移动端事件</title>
+    <style>
+      .move {
+        background-color: pink;
+        width: 100%;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>移动端事件</h1>
+    <div class="move" id="move">
+      <p id="p"></p>
+    </div>
+  </body>
+  <script>
+    /**
+     * 事件节流：
+     * 把高频率的事件变成低频率；每隔一段时间间隔，事件会触发一次。
+     */
+    let move = document.getElementById("move");
+    let p = document.getElementById("p");
+    let i = 0;
+
+    // 没封装
+    // let timer = null; // 节流阀
+    // move.addEventListener("touchmove", function(e) {
+    //   if (!timer) {
+    //     timer = setTimeout(() => {
+    //       p.innerHTML = e.target.tagName + "," + i++;
+    //       timer = null;
+    //     }, 1000);
+    //   }
+    // });
+
+    // 节流封装
+    function throttle(fn, time) {
+      let timer = null;
+      return function(context) {
+        if (!timer) {
+          timer = setTimeout(() => {
+            fn.call(null, context);
+            timer = null;
+          }, time);
+        }
+      };
+    }
+
+    function log(e) {
+      console.log("123");
+    }
+
+    move.addEventListener("touchmove", throttle(log, 1000));
+  </script>
+</html>

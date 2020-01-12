@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>transform2D</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        width: 400px;
+        height: 600px;
+        text-align: center;
+        margin: 0 auto;
+      }
+      .con {
+        width: 100px;
+        height: 100px;
+        border: 1px solid green;
+        display: flex;
+        margin-left: 50px;
+        margin-top: 50px;
+      }
+      .rotate,
+      .skew,
+      .scale,
+      .translate,
+      .translate-scale {
+        width: 50px;
+        height: 50px;
+        color: #fff;
+        text-align: center;
+        line-height: 50px;
+        margin: auto;
+        background-color: orange;
+        transition: all 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>transform2D转换</h2>
+    <h3>旋转</h3>
+    <div class="con">
+      <div class="rotate">旋转</div>
+    </div>
+
+    <h3>斜切</h3>
+    <div class="con">
+      <div class="skew">斜切</div>
+    </div>
+
+    <h3>缩放</h3>
+    <div class="con">
+      <div class="scale">缩放</div>
+    </div>
+
+    <h3>位移</h3>
+    <div class="con">
+      <div class="translate">位移</div>
+    </div>
+
+    <h3>位移+缩放</h3>
+    <div class="con">
+      <div class="translate-scale">位移+缩放</div>
+    </div>
+  </body>
+  <script>
+    // 旋转 顺时针，逆时针 围绕中心点
+    var rotate = document.querySelector(".rotate");
+    rotate.addEventListener("touchstart", () => {
+      // deg角度
+      rotate.style.transform = "rotate(90deg)";
+    });
+
+    //  斜切 X轴/Y轴方向（默认x轴）围绕中心点
+    var skew = document.querySelector(".skew");
+    skew.addEventListener("touchstart", () => {
+      // deg角度
+      skew.style.transform = "skewY(30deg)";
+    });
+
+    //  缩放 X轴Y轴 围绕中心点
+    var scale = document.querySelector(".scale");
+    scale.addEventListener("touchstart", () => {
+      // 缩放比例
+      scale.style.transform = "scale(.5, 2)";
+    });
+
+    // 位移 X\Y轴 px rem
+    var translate = document.querySelector(".translate");
+    translate.addEventListener("touchstart", () => {
+      // 位移px
+      translate.style.transform = "translate(50px)";
+    });
+
+    // 多个变换时，先写的后执行
+    var translateAndScale = document.querySelector(".translate-scale");
+    translateAndScale.addEventListener("touchstart", () => {
+      translateAndScale.style.transform = "translate(30px) scale(1.5)";
+    });
+  </script>
+</html>

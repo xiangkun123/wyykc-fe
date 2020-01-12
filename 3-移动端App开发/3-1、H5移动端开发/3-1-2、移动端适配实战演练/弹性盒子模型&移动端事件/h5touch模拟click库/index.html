@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>touch模拟click的移动端的库</title>
+  </head>
+  <body>
+    <button class="tap">一个按钮</button>
+  </body>
+  <script src="./h5.js"></script>
+  <script>
+    $(".tap").tap(function(e) {
+      console.log("单击事件");
+    });
+    $(".tap").longTap(function(e) {
+      console.log("长按事件");
+    });
+    $(".tap").leftSlide(function(e) {
+      console.log("左滑事件");
+    });
+  </script>
+</html>

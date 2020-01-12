@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+		/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>转盘</title>
+		<link rel="stylesheet" href="./css/index.css" />
+	</head>
+	<body>
+		<div id="prize" class="prize-box">
+			<div class="prize-wrapper">
+				<div class="prize prize1 active">华为</div>
+				<div class="prize prize2">iPhone X</div>
+				<div class="prize prize3">谢谢惠顾</div>
+				<div class="prize prize4">小熊抱枕</div>
+				<div class="prize prize5">小度音响</div>
+				<div class="prize prize6">电风扇</div>
+				<div class="prize prize7">格力冰箱</div>
+				<div class="prize prize8">手环</div>
+			</div>
+			<button class="btn btn-start" id="startBtn">开始</button>
+		</div>
+	</body>
+</html>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/turnPlate.js"></script>
+<script>
+	$(function() {
+		/*
+		 * el 转盘容器元素
+		 * btn 按钮元素
+		 * tranRate 速率1-10，从慢到快
+		 * duration: 10, 持续时间
+		 */
+		var turnPlate = TurnPlate._init({
+			el: "#prize",
+			btn: "#startBtn",
+			tranRate: [1, 10],
+			duration: 10,
+		});
+
+		$("#startBtn").click(function() {
+			// 8个概率相同
+			turnPlate.start();
+
+			// 设置一个奖品的概率是50%
+			// turnPlate.half("小熊抱枕");
+
+			// 控制抽中的奖品为小熊抱枕
+			// turnPlate.select("小熊抱枕");
+
+			// 所有奖品概率不同，传入数组；rate也是一个数组，第一个参数是分子，第二个参数是分母；例如：[1, 8] 就等于 8分之1
+			// var prizes = [
+			// 	{ prize: "华为", rate: [1, 8] },
+			// 	{ prize: "iPhone X", rate: [1, 8] },
+			// 	{ prize: "谢谢惠顾", rate: [2, 8] },
+			// 	{ prize: "小熊抱枕", rate: [1, 8] },
+			// 	{ prize: "小度音响", rate: [1, 8] },
+			// 	{ prize: "电风扇", rate: [1, 8] },
+			// 	{ prize: "格力冰箱", rate: [1, 16] },
+			// 	{ prize: "手环", rate: [1, 16] },
+			// ];
+			// turnPlate.all(prizes);
+		});
+	});
+</script>

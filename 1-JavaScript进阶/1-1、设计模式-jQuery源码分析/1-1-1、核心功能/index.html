@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+	</head>
+	<body>
+		<script src="./jQuery-1.0.js"></script>
+		<script>
+			// 初始化jQuery: $()
+			console.log($());
+
+			// 给任意对象扩展（两个参数）
+			var ret = { name: "max", list: { age: "30" } };
+			var res = { list: { sex: "女" } };
+
+			var obj = $.extend(true, {}, ret, res);
+			console.log(obj);
+
+			// // 给jQuery本身扩展属性和方法（一个参数）
+			// $.extend({
+			// 	work: function() {},
+			// });
+			// jQuery.work();
+
+			// // 给jQuery实例对象扩展属性和方法（一个参数）
+			// $.fn.extend({
+			// 	sex: "男",
+			// });
+			// $().sex; // 男
+		</script>
+	</body>
+</html>

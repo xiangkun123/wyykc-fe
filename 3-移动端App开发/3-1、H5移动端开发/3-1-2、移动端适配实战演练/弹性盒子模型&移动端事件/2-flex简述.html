@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>弹性盒子模型&移动端事件</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .con {
+        width: 100%;
+        height: 200px;
+        border: 1px solid peru;
+        display: flex;
+      }
+      .con > div {
+        width: 100px;
+        height: 50px;
+        background-color: deepskyblue;
+        color: #fff;
+        text-align: center;
+        line-height: 50px;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      效果：div元素水平垂直居中
+          order: 有order的，order越小越排前，没order排最前；
+          flex-grow: 会先减去有固定宽度的元素；剩下按比例分配；
+    -->
+    <div class="con">
+      <div style="order: 1;flex-grow: 1;">div1</div>
+      <div style="order: 2;flex-grow: 2;background-color: yellow;">div2</div>
+      <div style="order: 3;flex-grow: 3;">div3</div>
+      <div style="width: 500px;background-color: yellow;">div4</div>
+    </div>
+  </body>
+</html>

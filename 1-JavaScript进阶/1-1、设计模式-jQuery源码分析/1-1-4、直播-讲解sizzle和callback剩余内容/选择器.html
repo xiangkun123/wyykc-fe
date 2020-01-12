@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>jquery 选择器</title>
+	</head>
+	<body>
+		<div id="box">盒子</div>
+	</body>
+</html>
+<script src="./jquery.1.0.2.js"></script>
+<script>
+	/**
+	 * 问题：
+	 * 1、如何将创建的DOM节点包装成jQuery对象
+	 *      通过context.createElement()创建DOM节点储存在数组中，通过 merge() 方法把数组中储存的DOM元素成员添加到jQuery对象上
+	 * 2、jQuery对象length属性的作用
+	 *      储存DOM节点的数组对象平滑地添加到jQuery对象上
+	 * 3、merge应用场景
+	 *      合并数组
+	 *      把数组成员合并在有length属性的对象上
+	 * 4、$(document).ready() 和 $(function(){}) 关系
+	 *      $(document).ready() 是对 document.DOMContentLoaded 事件的封装，document.DOMContentLoaded 是在 DOM 树渲染完成时触	*			发(不包括css规则树等)
+	 *
+	 *      $(function(){})：每次调用$()传入的函数参数都会收集在readyList数组中，当 document.DOMContentLoaded 事件触发依次执	*			行 readyList 中的处理函数
+	 *
+	 *
+	 * 5、
+	 * 		（1）了解 onload 事件和 DOMContentLoaded 事件
+	 * 			onload 是当我们页面上所有的资源（dom、样式表、脚本、flash、图片）都加载解析完成就会触发的事件；
+	 * 			DOMContentLoaded 是在DOM加载解析完毕后就会触发的事件，不包括其他的资源。
+	 * 			$(function(){}) => 语法糖 => $(document).ready() => DOMContentLoaded 的事件封装
+	 *
+	 * 		（2）一个事件只能绑定一个事件函数，如果绑定了多个，后续的会覆盖掉前面的函数
+	 *
+	 */
+
+	// 1、啥都不传
+	// console.log($());
+
+	// 2、传dom元素
+	// console.log($(document));
+
+	// 3、传 div 字符串查询
+	// console.log($("div"));
+
+	// 4、传一个字符串加尖括号创建
+	// console.log($("<p>"));
+
+	// 5、传入方法时
+	// $(function() {
+	// 	console.log("aaa");
+	// });
+
+	// （1）DOMCotentLoaded和onload的区别
+	// document.addEventListener("DOMContentLoaded", function() {
+	// 	alert(123);
+	// });
+	// window.onload = function() {
+	// 	alert(123);
+	// };
+
+	// （2）一个事件只能绑定一个事件函数，如果绑定了多个，后续的会覆盖掉前面的函数
+	// window.onload = function() {
+	// 	console.log(1);
+	// };
+	// window.onload = function() {
+	// 	console.log(2);
+	// };
+
+	// 而在jQuery中，却可以使用多个 $(function() {})
+	$(document).ready(function() {
+		console.log(4);
+	});
+	$(function() {
+		console.log(1);
+	});
+	$(function() {
+		console.log(2);
+	});
+	$(function() {
+		console.log(3);
+	});
+</script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #box {
+        width: 200px;
+        height: 200px;
+        margin: 250px auto;
+        position: relative;
+        /* 保留它子元素的3D效果，默认是关掉flat */
+        transform-style: preserve-3d;
+        /* 景深，也叫透视 */
+        transform: perspective(800px);
+        animation: ro 6s linear infinite;
+        background-color: khaki;
+      }
+      @keyframes ro {
+        0% {
+          transform: rotate(0) rotateX(45deg) rotateY(-180deg);
+        }
+        100% {
+          transform: rotate(360deg) rotateX(45deg) rotateY(180deg);
+        }
+      }
+      #box > div {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: 0.5s;
+        background-color: violet;
+      }
+      #box > .top {
+        background-color: red;
+        background-size: 100% 100%;
+        transform: translateY(-100px) rotateX(90deg);
+      }
+      #box > .bottom {
+        background-color: green;
+        background-size: 100% 100%;
+        transform: translateY(-100px) rotateX(90deg);
+      }
+      #box > .left {
+        background-color: blue;
+        background-size: 100% 100%;
+        transform: translateY(-100px) rotateX(90deg);
+      }
+      #box > .right {
+        background-color: greenyellow;
+        background-size: 100% 100%;
+        transform: translateY(-100px) rotateX(90deg);
+      }
+      #box > .prev {
+        background-color: purple;
+        background-size: 100% 100%;
+        transform: translateY(-100px) rotateX(90deg);
+      }
+      #box > .bottom {
+        background-color: firebrick;
+        background-size: 100% 100%;
+        transform: translateY(-100px) rotateX(90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <ul class="box1">
+        <div class="top1"></div>
+        <div class="bottom1"></div>
+        <div class="left1"></div>
+        <div class="right1"></div>
+        <div class="prev1"></div>
+        <div class="back1"></div>
+      </ul>
+      <div class="top"></div>
+      <div class="bottom"></div>
+      <div class="left"></div>
+      <div class="right"></div>
+      <div class="prev"></div>
+      <div class="back"></div>
+    </div>
+  </body>
+</html>

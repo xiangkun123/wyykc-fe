@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>自定义滑动区域</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+      header {
+        width: 100%;
+        height: 40px;
+        background-color: greenyellow;
+        line-height: 40px;
+        color: #000;
+        text-align: center;
+      }
+      #wrap {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        overflow: hidden;
+      }
+      #list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      #list li {
+        background-color: #fff;
+        color: #333;
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #999;
+        text-indent: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>我是header</header>
+    <div id="wrap">
+      <ul id="list"></ul>
+    </div>
+    <footer>我是footer</footer>
+  </body>
+  <script>
+    function initLst() {
+      let list = document.getElementById("list");
+      let html = "";
+      for (let i = 0; i < 100; i++) {
+        html += "<li>我是li" + i + "</li>";
+      }
+      list.innerHTML = html;
+    }
+    window.onload = function() {
+      initLst();
+      var wrap = document.getElementById("wrap");
+      var lists = document.getElementById("list");
+      var startY = 0; // Y轴
+      var startEl = 0;
+      var translateY = 0;
+      list.addEventListener("touchstart", e => {
+        startY = e.changedTouches[0].pageY;
+        startEl = translateY;
+      });
+      lists.addEventListener("touchmove", e => {
+        var moveY = e.changedTouches[0].pageY;
+        var distance = moveY - startY;
+        console.log(distance);
+        translateY = startEl + distance;
+        lists.style.transform = "translateY(" + translateY + "px)";
+      });
+    };
+    // left top => 元素回流（布局属性或者几何属性）
+  </script>
+</html>

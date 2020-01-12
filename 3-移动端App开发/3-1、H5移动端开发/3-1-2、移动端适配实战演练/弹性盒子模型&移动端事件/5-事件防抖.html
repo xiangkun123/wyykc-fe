@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>弹性盒子模型&移动端事件</title>
+    <style>
+      .move {
+        background-color: pink;
+        width: 100%;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>移动端事件</h1>
+    <div class="move" id="move">
+      <input type="text" id="ipt" />
+    </div>
+  </body>
+  <script>
+    /**
+     * 事件防抖：
+     * 不关心中间过程，只关心最后的结果；事件只会触发一次。
+     */
+    let ipt = document.getElementById("ipt");
+
+    // 没封装
+    // let timer = null;
+    // ipt.addEventListener("input", function(e) {
+    //   if (timer) clearTimeout(timer);
+    //   timer = setTimeout(() => {
+    //     console.log(e.target.value);
+    //   }, 1000);
+    // });
+
+    // 封装
+    function antiShake(fn, wait) {
+      let timer = null;
+      return function(context) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          fn.call(null, context);
+        }, 1000);
+      };
+    }
+
+    function log(e) {
+      console.log(e.target.value);
+    }
+
+    ipt.addEventListener("input", antiShake(log, 1000));
+  </script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>弹性盒子模型&移动端事件</title>
+  </head>
+  <body>
+    <h1>移动端事件</h1>
+    <button id="touchstart">touchStart</button>
+  </body>
+  <script>
+    /**
+     * 移动端模式下：touchstart会比click慢300ms
+     */
+    let btn = document.getElementById("touchstart");
+    btn.addEventListener("touchstart", function(e) {
+      console.log("touchstart");
+    });
+    btn.addEventListener("click", function(e) {
+      console.log("click");
+    });
+  </script>
+</html>

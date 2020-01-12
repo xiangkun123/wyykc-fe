@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>transform3D</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        width: 400px;
+        height: 600px;
+        text-align: center;
+        margin: 0 auto;
+      }
+      .con {
+        width: 100px;
+        height: 100px;
+        border: 1px solid green;
+        display: flex;
+        margin-left: 50px;
+        margin-top: 50px;
+        /* 景深 */
+        perspective: 100px;
+      }
+      .rotate,
+      .skew,
+      .scale,
+      .translate,
+      .translate-scale {
+        width: 50px;
+        height: 50px;
+        color: #fff;
+        text-align: center;
+        line-height: 50px;
+        margin: auto;
+        background-color: orange;
+        transition: all 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>transform3D转换</h2>
+    <h3>旋转</h3>
+    <div class="con">
+      <div class="rotate">旋转</div>
+    </div>
+
+    <h3>位移</h3>
+    <div class="con">
+      <div class="translate">位移</div>
+    </div>
+
+    <h3>位移+缩放</h3>
+    <div class="con">
+      <div class="translate-scale">位移+缩放</div>
+    </div>
+  </body>
+  <script>
+    // 旋转 顺时针，逆时针 围绕中心点
+    var rotate = document.querySelector(".rotate");
+    rotate.addEventListener("touchstart", () => {
+      // deg角度
+      rotate.style.transform = "rotateZ(-60deg)";
+    });
+
+    // 位移 X\Y轴 px rem
+    var translate = document.querySelector(".translate");
+    translate.addEventListener("touchstart", () => {
+      // Z轴，需要和css的景深结合来看
+      translate.style.transform = "translateZ(-100px)";
+    });
+  </script>
+</html>
