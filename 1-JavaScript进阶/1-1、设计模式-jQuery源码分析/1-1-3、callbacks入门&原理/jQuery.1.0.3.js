@@ -21,7 +21,7 @@
 				setting = true;
 				length = list.length;
 				for (; index < length; index++) {
-					if (list[index].call(data[0], data[1]) === false && options.stopOnFalse) {
+					if (list[index].apply(data[0], data[1]) === false && options.stopOnFalse) {
 						break;
 					}
 				}

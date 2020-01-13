@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body></body>
+</html>
+<script src="./jQuery.1.0.5.js"></script>
+<script>
+	var wait = function() {
+		var der = $.Deferred(); // 延迟对象
+		var test = function() {
+			console.log("打印东西");
+			der.resolve("max"); // 成功
+		};
+		setTimeout(test, 2000);
+		return der;
+	};
+
+	// 延迟对象的状态 决定调用哪个队列中的处理函数
+	$.when(wait())
+		.done(function(name) {
+			console.log(name);
+			console.log("执行成功");
+		})
+		.fail(function() {
+			console.log("执行失败");
+		});
+</script>
