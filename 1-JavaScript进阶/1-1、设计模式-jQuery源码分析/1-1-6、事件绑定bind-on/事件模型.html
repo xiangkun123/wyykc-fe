@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="box">点击</div>
+		<ul id="proxy">
+			<li>主页</li>
+			<li>文章</li>
+			<li>简介</li>
+		</ul>
+	</body>
+</html>
+<script>
+	// DOM 0级事件模型
+	// box.onclick = function() {
+	// 	console.log("box");
+	// };
+	// for (var key in box) {
+	// 	console.log("属性" + key + ", 值为" + box[key]);
+	// }
+
+	// 遍历给每一个li加上点击事件
+	var ElemUl = document.getElementById("proxy");
+	var ElemLi = ElemUl.getElementsByTagName("li");
+	for (let i = 0; i < ElemLi.length; i++) {
+		ElemLi[i].onclick = function() {
+			console.log("点击了");
+		};
+	}
+
+	// 事件代理的方式：直接给ul节点绑定点击事件，只需要在里面判断当前点击的是不是li元素，同样实现上面的功能
+	var proxy = document.getElementById("proxy");
+	proxy.onclick = function(event) {
+		var target = event.target;
+		if (target.nodeName.toLowerCase() == "li") {
+			console.log("点击了");
+		}
+	};
+</script>
