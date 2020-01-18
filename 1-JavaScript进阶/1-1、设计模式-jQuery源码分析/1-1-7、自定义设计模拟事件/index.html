@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<input type="text" id="input" />
+		<div id="box"></div>
+	</body>
+</html>
+<!-- <script src="./jQuery.teacher.js"></script> -->
+<script src="./jQuery.1.0.7.js"></script>
+<script>
+	// 注意：事件处理程序第一个参数默认是event
+	$("#box").on("createEvent", function(event, name) {
+		console.log(name);
+		console.log("loading...");
+	});
+	$("body").on("createEvent", function(event, name) {
+		console.log("loading...");
+	});
+
+	// 模拟事件对象event，参数max
+	$("#box").trigger("createEvent", "max");
+
+	// 执行浏览器默认事件 相当于执行了原生onfocus事件
+	// $("input").on("focus", function() {
+	// 	console.log("loading...");
+	// });
+	// $("input").trigger("focus");
+</script>
