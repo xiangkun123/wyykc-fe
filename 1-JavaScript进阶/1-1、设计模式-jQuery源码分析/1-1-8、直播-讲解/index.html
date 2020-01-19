@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body></body>
+</html>
+<script>
+	// 每次调用拿到的都是self的副本
+	function fn() {
+		var self = {};
+		return self;
+	}
+
+	console.log(fn() === fn()); // false
+
+	// 情况一
+	var fn = function() {
+		console.log(2);
+	};
+	function fn() {
+		console.log(1);
+	}
+	fn(); // 2
+
+	// 情况二
+	var fn = [];
+	function fn() {
+		console.log(1);
+	}
+	fn(); // Uncaught TypeError: fn is not a function
+
+	// 情况三
+	var fn;
+	function fn() {
+		console.log(1);
+	}
+	fn(); // 1
+</script>
