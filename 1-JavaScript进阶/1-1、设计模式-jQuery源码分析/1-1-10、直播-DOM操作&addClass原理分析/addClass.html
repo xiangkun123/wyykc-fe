@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .red{
+      color: red;
+    }
+    .fontSize {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">测试1</div>
+  <div class="box">测试2</div>
+</body>
+</html>
+<script src="./jQuery.1.0.10.js"></script>
+<script>
+  // addClass() 多个值通过空格间开 通过正则分割多个值
+  // \s 匹配空格字符 \S 匹配空格以外任意的字符
+  $('.box').addClass("red fontSize");
+</script>

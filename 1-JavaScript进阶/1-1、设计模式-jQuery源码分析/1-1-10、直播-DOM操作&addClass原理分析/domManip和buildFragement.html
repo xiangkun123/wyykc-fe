@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="box">内容</div>
+</body>
+</html>
+<!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script> -->
+<script src="./jQuery.1.0.10.js"></script>
+<!-- <script src="./jQuery.teacher.js"></script> -->
+<script>
+  // 将节点插入box元素
+  var node = $('<div><p>max</p></div>')[0];
+  $('.box')[0].appendChild(node);
+</script>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			#box {
+				width: 200px;
+				height: 100px;
+				color: red;
+				font-size: 18px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">欢迎来到网易云课堂</div>
+		<div id="box1" style="font-size:12px;">测试</div>
+	</body>
+</html>
+<!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script> -->
+<script src="./jQuery.1.0.10.js"></script>
+<script>
+	// 基础回顾
+	// var box = document.getElementById("box");
+	// var box1 = document.getElementById("box1");
+	// console.log(box.style.fontSize); // 无法获取到box的fontSize
+	// console.log(window.getComputedStyle(box)["fontSize"]); // 18px;
+	// console.log(box1.style.fontSize); // 12px;
+
+  // console.log($("#box").text());
+  // console.log($("#box").text("max"));
+
+	// 测试一下jQuery中可传参数
+  console.log($("#box").css(["color", "height"])); // {color: "rgb(255, 0, 0)", height: "100px"}
+	console.log($("#box").css("color")); //rgb(255, 0, 0)
+	console.log($("#box").css("font-size", "14px")); //jQuery.fn.init [div#box]
+</script>
