@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      background-color: #abcdef;
+      position: relative;
+      left: 500px;
+      width: 150px;
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+</html>
+<script src="./jQuery.1.0.11.js"></script>
+<script>
+
+  // 帧 定时器
+  $('.box').animate({
+    left: 50,
+    duration: 2000
+  });
+  
+</script>

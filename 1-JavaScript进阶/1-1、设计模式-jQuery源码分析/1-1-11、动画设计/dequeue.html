@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="box">盒子</div>
+</body>
+</html>
+<script src="./jQuery.1.0.11.js"></script>
+<!-- <script src="./jQuery.teacher.js"></script> -->
+<script>
+  var box = $("#box");
+  function fn(next) {
+    // next 指向下一个要执行的处理函数
+    console.log("max");
+    next();
+  }
+  function fn1(next) {
+    console.log("remi");
+    next();
+  }
+  function fn2() {
+    console.log("杨帆");
+  }
+
+  // set
+  $.queue(box, "max", fn);
+  $.queue(box, "max", fn1);
+  $.queue(box, "max", [fn2]);
+  console.log($.queue(box, "max"));   // [fn, fn1, fn2]
+
+  // [出列] callbacks => 依次执行处理函数  dequeue => 一次出列只会去调用一个处理函数
+  // 1、可以通过多次调用$.dequeue(box, "max")执行处理函数
+  // $.dequeue(box, "max");        // max
+  // $.dequeue(box, "max");        // remi
+  // $.dequeue(box, "max");        // 杨帆
+
+  // 2、也可以通过next()方法调用下一个处理函数
+  $.dequeue(box, "max");
+
+  
+
+  // 通过 $().queue() 调用
+  $(".box").queue("max", function() {
+    console.log("max");
+  });
+  $(".box").queue("max", function() {
+    console.log("remi");
+  });
+  console.log($(".box").queue("max"));
+
+</script>

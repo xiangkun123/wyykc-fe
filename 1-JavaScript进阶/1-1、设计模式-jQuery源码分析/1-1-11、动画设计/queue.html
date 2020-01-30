@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./jQuery.1.0.11.js"></script>
+<!-- <script src="./jQuery.teacher.js"></script> -->
+<script>
+  var box = $("#box");
+  function fn() {
+    console.log("max");
+  }
+  function fn1() {
+    console.log("remi");
+  }
+  function fn2() {
+    console.log("杨帆");
+  }
+
+  // set
+  $.queue(box, "max", fn);
+  $.queue(box, "max", fn1);
+  $.queue(box, "max", [fn2]);
+  console.log($.queue(box, "max"));   // [fn, fn1, fn2]
+
+</script>
