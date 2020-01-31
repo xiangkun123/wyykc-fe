@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+
+//一、第一个例子：匹配手机号码
+
+//   /^ 1 [0|3-9] \d{9} $/
+
+// 1、第一位数字是1，所以1直接写；
+// 2、第二位数字是0或者3-9，那么就通过“|”来表示或者，[]表示选择表达式中的任意一项；
+// 3、第三个数字后的是任意数字，可以使用\d表示0-9之间的任意数字，{9}表示出现多少次，这里需要9位；
+// 4、最后是匹配位置，用于限定匹配的内容，其余的内容忽略掉；需要定位符（^ $）表示；
+// 	  ^ 表示匹配的开始位置；
+//    $ 表示匹配的结束位置；
+  
+// 同理，也可以写成这样
+//  /^1(0|[3-9])\d{9}$/
+//  /^1[03-9]\d{9}$/
+
+
+//二、第二个例子：提取函数中的依赖项
+
+// 引包  提取依赖项 b.js
+// function fn() {
+//   var b = require("./b.js");
+// }
+
+// var str = fn.toString();
+
+// /\b require	\( (["']) (.*) \1 \) /g
+
+// 1、\b	    是一个边界符，代表的是一个字符的范围（[0-9a-zA-Z_]），在require的前面不能有其他的字符;
+// 			      如：/\brequire/ 不能匹配“arequire”，但可以匹配“a require”；
+// 2、\( 	    是转义字符\转义(，表示可以匹配“(”；
+// 3、(["']) 	()里面表示的是一个子表达式，[]里面的任取其一匹配，这里就是用来匹配单引号'或者双引号"的
+//     	      中一个；
+// 4、(.*)  	() 里面表示的一个子表达式，.表示匹配任意字符，*表示任意多个字符；用于匹配引号中的内容；
+// 5、\1      这里\1是反向引用，数字1代表的是这个正则中第一个子表达式所匹配的内容，也就是前面的单引号或双引号；
+// 			      这里没有使用像前面的(["'])，是因为防止前面双引号后面单引号("./b.js')也会匹配成功，通过反向引用就
+//            可以避免这种情况，直接匹配和前面一致的内容；
+// 6、\)      是转义字符\转义)，表示可以匹配“)”；
+// 7、g       代表的是全局匹配，匹配所有的内容；
+
+// var reg = /\brequire\((["'])(.*)\1\)/g;
+// console.log(reg.exec(str));
+// console.log(reg.exec(str)[2]);
+
+
+// 三、多组件模式
+
+var setting = {
+  interpolate: /<%=([\s\S]+?)%>/,   // 变量
+  escape: /<%-([\s\S]+?)%>/,			  // 特殊字符
+	evalute: /<%([\s\S]+?)%>/,        //js逻辑代码
+}
+
+// 模板函数  编译 渲染
+function template(text) {
+  // 通过source获取一个正则的字符串形式，并且多个正则间用|隔开，
+	var matcher = new RegExp([
+    setting.interpolate.source,
+    setting.escape.source,
+  	setting.evalute.source,       // 需要放到最后，这个这个正则包含了前面两个正则，范围广的放到最后
+  ].join("|"), "g");
+  // console.log(matcher);		=> "/<%([\s\S]+?)%>|<%=([\s\S]+?)%>|<%-([\s\S]+?)%>/g"
+  
+  var index = 0;
+  var source = "_p+='";   //_p 定义初始化的变量
+
+  //replace() 方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
+  text.replace(matcher, function(match, interpolate, escape, evalute, offset) {
+    // console.log(match);        // 当前与这个正则相匹配的文本
+    // console.log(interpolate);  // 第一个子表达式的文本，也就是变量
+    // console.log(escape);       // 第二个子表达式的文本，也就是特殊字符
+    // console.log(evalute);      // 第三个子表达式的文本，也就是js逻辑代码
+    // console.log(offset);       // 匹配的文本首次出现的位置
+
+    // 切割匹配前的文本
+    source += text.slice(index, offset);
+    // 重置下一次切割的起点，表示下一次从哪里开始匹配
+    index = offset+match.length;
+
+    if (interpolate) {    // 变量
+      source += "'+\n((_t="+interpolate+")==null ? '': _t)+\n'";
+    } else if(escape) {   // 特殊字符
+
+    } else if(evalute) {  // js逻辑代码
+
+    }    
+  });
+
+  source+="';";
+  source = "with(obj||{}){\n"+source+"}\n";
+  source="var _t,_p='';\n" + source + "console.log(_p);return _p;\n";
+  // console.log(source);
+
+  // 渲染函数 source = "with(obj||{}){...}"
+  var render = new Function("obj", source);   // obj 指向的就是data
+  var template = function(data) {     // 指向的是外部传入的data
+    return render(data);
+  }
+  return template;
+}
+
+// 数据对象
+var data = {
+	root: "max"
+}
+
+// template("<% if() %>");	        // js逻辑代码
+
+var render = template("hello: <%=root%>");	// 变量 => hello: max
+console.log(render(data));
+</script>
+
