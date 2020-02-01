@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+
+  // 1、纯函数的概念：对于相同的输入，永远会得到相同的输出，而且没有任何可观察的副作用，也不依赖外部环境的状态。
+  // 如数学公式 y=f(x)，在 JavaScript 中对于数组的操作有些是纯的，有些是不纯的。
+  var timeOfLife = 20;
+  // 纯函数
+  function test(age) {
+    return age > 20;
+  }
+  // 非纯函数
+  function test(age) {
+    return age > timeOfLife;
+  }
+
+
+  // 2、柯里化
+  // 向函数传递一部分参数来调用它，让它返回一个函数去处理剩下的参数
+  var timeOfLife = 20;
+  function test(timeOfLife) {
+    return function(age) {
+      return age > timeOfLife;
+    }
+  }
+  var testing = test(timeOfLife);
+  testing(18);			            // => false
+
+
+  // 3、函数组合
+  // 为避免写出不优雅的包菜式代码 h(g(f(x)))，我们需要用到函数组合
+  var compose = function(f, g) {
+    return function(x) {
+      return f(g(x));
+    }
+  }
+  var mult = function(x) {
+    return x*5;
+  }
+  var add = function(x) {
+    return x+1;
+  }
+  compose(mult, add)(2);				// => 15
+</script>

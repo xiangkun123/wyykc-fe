@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<!-- <script src="https://cdn.bootcss.com/underscore.js/1.9.1/underscore.js"></script> -->
+<script src="./test.js"></script>
+<script>
+
+  // 没有字母的数组，直接去重
+  console.log(_.unique([1,2,3,4,5,4,5,6]));
+
+  // 对于有字母的数组，可以使用callbacks去重
+  console.log(_.unique([1,2,3,4,5,4,5,6,"a", "A"], function(value) {
+    return typeof value === "string" ? value.toLowerCase() : value;
+  }));
+
+</script>
