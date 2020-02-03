@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			
+// 			//https://www.processon.com/view/link/5cd95a72e4b00528647f6cd5
+// 			//函数对象来使用   函数对象.__proto__
+			Object.prototype.test = function() {
+				console.log("test...");
+			}
+            
+			//object.__proto__
+			Object.prototype.loading = function() {
+				console.log("loading...");
+			}
+             
+			
+			 //构造函数
+			function Person() {
+
+			}
+		  console.log(Object.test)
+       //  console.log(Person.test)
+// 			var max = new Person();     //  {}   {}.__proto__  ==  Person.prototype
+// 			
+// 			console.log(max.test)   // undefined
+// 			console.log(max.loading)  //？方法   有的
+// 
+//            //对象   对象的原型链
+// 		   
+// 		   //prototype   函数对象的属性
+// 		   //__proto__   任意对象都有__proto__属性   指向自身构造函数的原型对象
+// 		   
+// 		   console.log(Function.prototype)   //ƒ () { [native code] }
+// 		   console.log(Function.prototype.__proto__ === Object.prototype);      //true 1  false 2
+// 		   
+// 		   
+// 		   //Object  是所有内置构造函数(本地构造函数)的基类   Function 是Object 派生类
+
+
+//Object  Function
+
+// function Object(){
+// 	
+// }
+//构造函数
+//console.log(Object.prototype === Function.prototype)
+
+
+//函数对象   Function
+console.log(Object.__proto__ === Function.prototype)
+
+		</script>
+	</body>
+</html>
