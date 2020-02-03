@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./underscore.1.0.3.js"></script>
+<script>
+
+  // 专门为对象服务的方法，迭代函数改变value值，返回对象副本
+  var obj = {name: "max"};
+  console.log(_.map([1,2,3], function(value, index, object) {
+    console.log(object);			// 绑定传入的obj
+    console.log(this);
+    return value*3;
+  }, obj));
+
+</script>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./underscore.1.0.4.js"></script>
+<script>
+
+  // ES6中获取剩余参数
+  // function test(count, ...rest) {
+  //   console.log(rest);            // [2,3,4]
+  // }
+  // test(1,2,3,4);
+
+
+  // // ES5中获取
+  // function test(count, rest) {
+  //   console.log(rest);
+  // }
+  // // 包装器
+  // var restTest = _.restArguments(test);
+  // restTest(1,2,3,4);
+
+
+  // Object.create 创建对象
+  var obj = { name: "max" };
+  var newObj = Object.create(obj);
+  console.log(newObj);
+
+
+  // baseCreate 创建对象
+  var newObj2 = _.baseCreate(obj);
+  console.log(newObj2);
+
+
+  
+</script>
