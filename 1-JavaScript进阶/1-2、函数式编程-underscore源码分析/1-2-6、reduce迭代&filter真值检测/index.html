@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./underscore.1.0.6.js"></script>
+<script>
+
+  var obj = {name: "max"};
+
+  // _.reduce 累加
+  console.log(
+    _.reduce([1,2,3,4,5, 6], function(memo, value, index, obj) {
+      console.log(this);
+      return memo + value;
+    }, 0)
+  );
+
+
+  // _.filter 过滤
+  console.log(
+    _.filter([12,50,3,4,6,13,12], function(elem, index, obj) {
+      console.log(this);
+      return elem < 10;
+    })
+  );
+  
+</script>

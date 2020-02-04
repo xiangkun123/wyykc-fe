@@ -70,6 +70,10 @@
         return function(value, index, obj) {
           return func.call(context, value, index, obj);
         }
+      case 4:
+        return function(memo, value, index, obj) {
+          return func.call(context, memo, value, index, obj);
+        }
     }
   }
 
@@ -117,6 +121,48 @@
     return result;
   }
 
+  var createReducer = function(dir) {
+    // iteratee是case=4的匿名函数
+    var reduce = function(obj, iteratee, memo, init) {
+      var keys = !_.isArray(obj) && Object.keys(obj),
+        length = (keys || obj).length,
+        index = dir > 0 ? 0 : length -1;
+
+      // 如果没传初始值，需要将遍历的第一个值变成初始值
+      if (!init) {
+        memo = obj[keys ? keys[index] : index];
+        index += dir;   //1
+      }
+
+      // 遍历每一次返回的结果更新memo
+      for (; index >=0 && index < length; index += dir) {
+        var currentKey = keys ? keys[index] : index;
+        memo = iteratee(memo, obj[currentKey], currentKey, obj);
+      }
+
+      return memo;
+    }
+    
+    // _.reduce指向这个匿名函数
+    return function(obj, iteratee, memo, context) {
+      var init = arguments.length >= 3;             // 判定是否有传入初始值 
+      return reduce(obj, optimizeCb(iteratee, context, 4), memo, init);
+    };
+  }
+
+  // 1: 正序, 2: 倒序
+  _.reduce = createReducer(1);
+
+  // predicate 真值检测（重点: 返回值）
+  _.filter = _.select = function(obj, predicate, context) {
+    var results = [];
+    predicate = cb(predicate, context);
+    _.each(obj, function(value, index, obj) {
+      if (predicate(value, index, obj)) results.push(value); 
+    });
+    return results;
+  }
+
   // 链式调用
   _.chain = function(obj) {
     var instance = _(obj);        // 获取underscore实例对象
@@ -143,6 +189,83 @@
     return result;
   }
 
+
+  // dir: 1 => 正序遍历 -1 => 倒序遍历
+  function createPredicateIndexFinder(dir) {
+    return function(array, predicate, context) {
+      predicate = cb(predicate, context); // _.isNaN
+      var length = array.length;
+      // 根据dir变量来确定数组遍历的起始位置
+      var index = dir > 0 ? 0 : length - 1;
+
+      // 遍历查找返回符合条件的下标值
+      for(; index >= 0 && index < length; index += dir) {
+        if (predicate(array[index], index, array)) {
+          return index;
+        }
+      }
+
+      return -1;
+    };
+  }
+
+  _.findIndex = createPredicateIndexFinder(1);
+  _.findLastIndex = createPredicateIndexFinder(-1);
+
+  // 二分查找方法
+  _.sortedIndex = function(array, obj, iteratee, context) {
+    // 重点:cb函数 if (iteratee == null) {return function(value){return value;}}
+    iteratee = cb(iteratee, context, 1);
+    var value = iteratee(obj);
+    var low = 0,
+      high = array.length;
+
+    // 二分查找
+    while (low < high) {
+      var mid = Math.floor((low + high) / 2);
+      if (iteratee(array[mid]) < value)
+        low = mid + 1;
+      else
+        high = mid;
+    }
+
+    return low;
+  }
+
+  function createIndexFineder(dir, predicateFind, sortedIndex) {
+    // API 调用形式
+    // _.indexOf(array, value, [isSorted])
+    return function(array, item, idx) {
+      var i = 0,
+        length = array.length;
+      
+      // sortedIndex为true时，序列是已经排序过的，使用二分查找，优化性能
+      if (sortedIndex && _.isBoolean(idx) && length) {
+        // 使用 _.sortedIndex 来查找 item 的位置
+        idx = sortedIndex(array, item);
+        return array[idx] === item ? idx : -1;
+      }
+
+      // 特殊情况 如果查找的元素是NaN类型 NaN !== NaN
+      if (item !== item) {
+        idx = predicateFind(slice.call(array, i, length), _.isNaN);
+        return idx >=0 ? idx + i : -1;
+      }
+
+      // 非上述情况正常遍历
+      for (idx = dir > 0 ? i : length-1; idx>= 0 && idx < length; idx += dir) {
+        if (array[idx] === item) return idx;
+      }
+
+      return -1;
+    };
+  }
+
+  // _.findIndex 特殊情况下的处理方案 NaN
+  // _.sortedIndex 针对排序的数组做二分查找 优化性能
+  _.indexOf = createIndexFineder(1, _.findIndex, _.sortedIndex);
+  _.lastIndexOf = createIndexFineder(-1, _.findLastIndex);
+
   // 类型检测
   _.isArray = function(array) {
     return toString.call(array) === "[object Array]";
@@ -153,6 +276,15 @@
   _.isObject = function(obj) {
     return toString.call(obj) === "[object Object]";
   }
+  _.isNumber = function(obj) {
+    return toString.call(obj) === "[object Number]";
+  }
+  _.isNaN = function(obj) {
+		return _.isNumber(obj) && obj !== obj;
+  };
+  _.isBoolean = function(obj) {
+    return toString.call(obj) === "[object Boolean]";
+  }
 
   // each遍历
   _.each = function(target, callback) {
@@ -160,11 +292,11 @@
     if (_.isArray(target)) {                  // 区分对象还是数组
       var length = target.length;
       for(; i<length; i++) {
-        callback.call(target, target[i], i);
+        callback.call(target, target[i], i, target);
       }
     } else {
       for (key in target) {
-        callback.call(target, key, target[key]);
+        callback.call(target, key, target[key], target);
       }
     }
   }

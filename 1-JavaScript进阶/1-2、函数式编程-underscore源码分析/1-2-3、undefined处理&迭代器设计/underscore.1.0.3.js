@@ -37,7 +37,7 @@
 
     for (var index = 0; index < length; index++) {
       var currentKey = keys ? keys[index] : index;
-      result[index] = iteratee(obj[currentKey], currentKey, context);
+      result[index] = iteratee(obj[currentKey], currentKey, obj);
     }
 
     return result;

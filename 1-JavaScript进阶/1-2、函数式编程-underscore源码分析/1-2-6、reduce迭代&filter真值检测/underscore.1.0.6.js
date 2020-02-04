@@ -70,6 +70,10 @@
         return function(value, index, obj) {
           return func.call(context, value, index, obj);
         }
+      case 4:
+        return function(memo, value, index, obj) {
+          return func.call(context, memo, value, index, obj);
+        }
     }
   }
 
@@ -117,6 +121,48 @@
     return result;
   }
 
+  var createReducer = function(dir) {
+    // iteratee是case=4的匿名函数
+    var reduce = function(obj, iteratee, memo, init) {
+      var keys = !_.isArray(obj) && Object.keys(obj),
+        length = (keys || obj).length,
+        index = dir > 0 ? 0 : length -1;
+
+      // 如果没传初始值，需要将遍历的第一个值变成初始值
+      if (!init) {
+        memo = obj[keys ? keys[index] : index];
+        index += dir;   //1
+      }
+
+      // 遍历每一次返回的结果更新memo
+      for (; index >=0 && index < length; index += dir) {
+        var currentKey = keys ? keys[index] : index;
+        memo = iteratee(memo, obj[currentKey], currentKey, obj);
+      }
+
+      return memo;
+    }
+    
+    // _.reduce指向这个匿名函数
+    return function(obj, iteratee, memo, context) {
+      var init = arguments.length >= 3;             // 判定是否有传入初始值 
+      return reduce(obj, optimizeCb(iteratee, context, 4), memo, init);
+    };
+  }
+
+  // 1: 正序, 2: 倒序
+  _.reduce = createReducer(1);
+
+  // predicate 真值检测（重点: 返回值）
+  _.filter = _.select = function(obj, predicate, context) {
+    var results = [];
+    predicate = cb(predicate, context);
+    _.each(obj, function(value, index, obj) {
+      if (predicate(value, index, obj)) results.push(value); 
+    });
+    return results;
+  }
+
   // 链式调用
   _.chain = function(obj) {
     var instance = _(obj);        // 获取underscore实例对象
@@ -160,11 +206,11 @@
     if (_.isArray(target)) {                  // 区分对象还是数组
       var length = target.length;
       for(; i<length; i++) {
-        callback.call(target, target[i], i);
+        callback.call(target, target[i], i, target);
       }
     } else {
       for (key in target) {
-        callback.call(target, key, target[key]);
+        callback.call(target, key, target[key], target);
       }
     }
   }
