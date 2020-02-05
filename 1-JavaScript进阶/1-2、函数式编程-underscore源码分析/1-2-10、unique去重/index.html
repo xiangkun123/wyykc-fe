@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./underscore.1.0.10.js"></script>
+<script>
+  
+  // 数组去重
+  console.log(_.unique([1,2,3,4,4,5,6], true));
+
+  // _.compact 去除数组中的假值项目
+  console.log(_.compact([0, 1, false, 2, "", 3]));
+
+  // 返回[0,5)内的数组
+  console.log(_.range(5));
+
+  // 产生[n,m)内的数组
+  console.log(_.range(1,11));
+
+  // 产生[n,m)且步长为2的数组
+  console.log(_.range(1,11,2));
+</script>

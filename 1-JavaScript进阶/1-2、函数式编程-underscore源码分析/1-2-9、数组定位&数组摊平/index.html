@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./underscore.1.0.9.js"></script>
+<script>
+
+  // _.initial(array, n)：获得 array 的除了最后 n 个元素以外的元素
+  console.log(_.initial([1,2,3,4,5], 2));
+
+
+  // _.rest([1,2,3,4,5,])：返回 array 中除了前 n 个元素外的所有元素
+  console.log(_.rest([1,2,3,4,5], 2));
+
+
+  // _.flatten：摊平 array，通过 shallow 指明是深度摊平还是浅摊平
+  // 深度展开
+  console.log(_.flatten([1, [2,3], [4,5], [[4]] ]));
+
+  // 浅度展开
+  console.log(_.flatten([1, [2,3], [4, [[4]] ]], true));
+</script>
