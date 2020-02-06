@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style></style>
+		<style>
+			.form{
+				width:400px;
+				height:200px;
+				margin:	50px auto;
+			}
+			.text{
+				outline: none;
+				border:1px solid #999;	
+				display: block;
+				float: left;
+				height:34px;
+				width:300px;
+			}
+
+		</style>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	</head>
+	<body>
+		<form class="form">
+			<fieldset class="fieldset">
+				<input type="text" placeholder="说出你的想法" class="text">
+				<div class="btn btn-info" style="border-radius:0px;">Submit</div>
+				<span class="span"  style="display: block; margin-top:10px"></span>
+			</fieldset>
+		</form>
+		<script src="underscore.1.0.12.js"></script>
+		<script>
+			
+			//XSS攻击  字符的过滤 筛选   <a href="javascript:alert(1)">max
+			var btnElem = document.querySelector(".btn");
+		    var spanElem = document.querySelector(".span");
+			btnElem.onclick = function(){
+			  var textElem = document.querySelector(".text");	
+			  var value = textElem.value;
+			  value = _.escape(value);
+			 	// console.log(value)
+			  spanElem.innerHTML = value;
+			}
+		</script>
+	</body>
+</html>

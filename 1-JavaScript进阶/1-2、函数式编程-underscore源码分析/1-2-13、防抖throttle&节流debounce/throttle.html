@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div{
+      height: 3000px;
+    }
+  </style>
+</head>
+<body>
+  <div></div>
+</body>
+</html>
+<script src="./underscore.1.0.13.js"></script>
+<script>
+
+  // 节流throttle
+  // leading 和 trailing 不能同时用
+  window.onscroll = _.throttle(function() {
+    console.log("hello max");
+  }, 1000, {
+    trailing: false,
+    // leading: false
+  });
+
+</script>
