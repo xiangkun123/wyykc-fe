@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./underscore.1.0.14.js"></script>
+<script>
+
+  /*
+    对象的属性操作？
+    1： 检测是否有某个key属性            has(obj,key)  	=> true/false
+    2:  获取对象上所有可枚举属性的名称		keys(obj)				=> ["name"]
+    3:  获取对象上所有可枚举属性的值		 values(obj)	   => ["max"]
+    4:  属性跟值替换										invert(obj)			=> {"max":"name"}
+    ....
+  */
+
+
+  var obj = {
+    name: "max",
+    toString: null
+  };
+
+  
+
+  // _.has(object, key): 检测object对象是否包含给定的key属性
+  // console.log(_.has(obj, "name"));
+
+
+  // _.keys(object): 获取object对象自身所有的可枚举属性名称
+  console.log(_.keys(obj));
+
+  // _.allKeys(object)： 对象自身+原型链所有的可枚举属性
+  function Person(name) {
+    this.name = name;
+  }
+  Person.prototype.one = function() {}
+
+  var p1 = new Person("max");
+  console.log(_.keys(p1));
+  console.log(_.allKeys(p1));
+
+  
+  // _.values(object): 获取object对象所有的属性值
+  console.log(_.values(obj));
+
+
+  // _.invert(object): 返回一个object副本，使其键和值对换。对于这个操作，必须确保object里所有的值都是唯一的且可以序列化成字符串
+  console.log(_.invert(obj));
+
+
+  // 扩展对象
+  console.log(_.extend({}, p1));
+  console.log(_.extendOwn({}, p1));
+
+
+</script>

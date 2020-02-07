@@ -18,7 +18,7 @@
 <script src="./underscore.1.0.13.js"></script>
 <script>
 
-  // 节流throttle
+  // 节流throttle: 一个处理函数在一个时间内被大量的触发时，可以通过节流的方式，使它在延迟一定的时间后才触发一次，主要用于控制触发频率
   // leading 和 trailing 不能同时用
   window.onscroll = _.throttle(function() {
     console.log("hello max");

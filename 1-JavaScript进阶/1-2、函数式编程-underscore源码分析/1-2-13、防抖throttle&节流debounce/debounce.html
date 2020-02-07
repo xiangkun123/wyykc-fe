@@ -7,12 +7,15 @@
   <title>Document</title>
 </head>
 <body>
-  
+  <div style="height:3000px;"></div>
 </body>
 </html>
 <script src="./underscore.1.0.13.js"></script>
 <script>
 
-  // 防抖debounce
+  // 防抖debounce：一个处理函数在一段时间内被大量触发，但只执行一次
+  window.onscroll = _.debounce(function() {
+    console.log('hello kaixin');
+  }, 1000);
 
 </script>

@@ -626,6 +626,136 @@
     };
   }
 
+  // 检测对象是否有某个属性
+  var hasOwnProperty = Object.hasOwnProperty;
+  _.has = function(obj, key) {
+    return obj !== null && hasOwnProperty.call(obj, key);
+  }
+
+
+  // 正常浏览器下=>true，ie特定的版本会有问题
+  var hasEnumbug = ({ toString: null }).propertyIsEnumerable("toString");
+  // Object.prototype上不可枚举属性的集合
+  var collectNotEnumProps = ["constructor", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable", "toLocaleString", "toString", "valueOf"];
+  
+  // 获取object对象上所有属性的名称（自身可枚举属性）
+  // 这里可以传入一个函数或者对象，函数本身也是对象，所以重写一下 _.isObject
+  _.keys = function(obj) {
+    var prop;
+
+    if (!_.isObject(obj)) {return []};
+
+    // 判断浏览器是否支持Object.keys()，优先使用
+    if(Object.keys) {
+      return Object.keys(obj);
+    }
+
+    var result = [];
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        result.push(key);
+      }
+    }
+
+    // 兼容IE<9下的某个版本不支持返回重载的可枚举属性，但实际上这个bug已经被修复了
+    if(!hasEnumbug) {
+      for(var i=0,length=collectNotEnumProps.length; i<length; i++) {
+        prop = collectNotEnumProps[i];
+        if (obj[prop] !== obj.__proto__[prop]) {   // 判断是否有Object上的重载的不可枚举属性
+          result.push(prop);
+        }
+      }
+    }
+
+    return result;
+  }
+
+  // 获取object对象上所有属性的名称（自身+原型链可枚举的属性）
+  _.allKeys = function(obj) {
+    var prop;
+    if (!_.isObject(obj)) {
+      return []
+    };
+
+    var result = [];
+    for (var key in obj) {
+      result.push(key);
+    }
+
+    // 兼容IE<9下的某个版本不支持返回重载的可枚举属性，但实际上这个bug已经被修复了
+    if(!hasEnumbug) {
+      for(var i=0,length=collectNotEnumProps.length; i<length; i++) {
+        prop = collectNotEnumProps[i];
+          if (obj[prop] !== obj.__proto__[prop]) {   // 判断是否有Object上的重载的不可枚举属性
+            result.push(prop);
+        }
+      }
+    }
+
+    return result;
+  }
+
+  // 获取对象上所有属性的值
+  _.values = function(obj) {
+    var result = [];
+    var value;
+
+    var keys = _.keys(obj);
+    for (var i = 0; i < keys.length; i++) {
+      value = obj[keys[i]];
+      result.push(value);
+    }
+
+    return result;
+  }
+
+  // 键值对对换
+  _.invert = function (obj) {
+    var result = {};
+    var prop;
+    
+    var keys = _.keys(obj);
+
+    for (var i = 0; i < keys.length; i++) {
+      prop = obj[keys[i]];
+      result[prop] = keys[i];
+    }
+
+    return result;
+  }
+
+  var createAssigner = function(func) {
+    return function(obj) {
+      var length = arguments.length;
+
+      // 如果obj=null或者只传入一个参数，直接返回
+      if (length < 2 || obj == null) { return obj; }
+
+      // 遍历所有属性
+      for (var i=1; i<length; i++) {
+        var source = arguments[i]
+        var keys = func(source);
+        var len = keys.length;
+        for (var j=0; j<len; j++) {
+          var key = keys[j];
+          obj[key] = source[key];
+        }
+      }
+
+      return obj;
+    }
+  }
+
+  _.extend = createAssigner(_.allKeys);			// 自身对象+原型链上的可枚举属性
+  _.extendOwn = createAssigner(_.keys);			// 自身对象上可枚举的属性
+
+  // obj 可以是函数或者对象
+  _.isObject = function(obj) {
+    var type = typeof obj;
+    return type === "function" || type === "object";
+  }
+
+
   // each遍历
   _.each = function(target, callback) {
     var key, i = 0;
@@ -645,7 +775,7 @@
 	_.isArray = function(array) {
 		return toString.call(array) === "[object Array]";
 	}
-  _.each(["Function", "String", "Object", "Number", "Boolean", "Arguments", "NaN"], function(name) {
+  _.each(["Function", "String", "Number", "Boolean", "Arguments", "NaN"], function(name) {
 		_["is" + name] = function(obj) {
 			return toString.call(obj) === "[object " + name + "]";
 		}
