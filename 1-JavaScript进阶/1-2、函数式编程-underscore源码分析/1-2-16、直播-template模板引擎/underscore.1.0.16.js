@@ -859,13 +859,14 @@
     
     // 怎么解析模块
     templateString.replace(matcher, function(match, interpolate, escape, evalute, offset) {
+      console.log(escape);
       
       // replace 用于把换行符替换掉
       source += templateString.slice(index, offset).replace(escapeExp, escapeChar);
       index = offset + match.length;
 
       if (escape) {
-
+        source += "'+\n((_t=('" + escape + "')) == null ? '" + _.escape(escape) + "' : _t)+\n'";
       } else if (interpolate) {
         source += "'+\n((_t=(" + interpolate + ")) == null ? '' : _t)+\n'";
       } else if (evalute) {
@@ -878,7 +879,7 @@
     source += "';";
     source = "with(obj){\n" + source + "\n}\n";
     source = "var _t,_p='';\n" + source + "return _p;\n";
-    console.log(source);
+    // console.log(source);
 
     // 把渲染数据和模板解析分开两个函数，防止更改数据时又要重新编译模板
     // 渲染函数：new Function()，source=>可执行的JavaScript字符串

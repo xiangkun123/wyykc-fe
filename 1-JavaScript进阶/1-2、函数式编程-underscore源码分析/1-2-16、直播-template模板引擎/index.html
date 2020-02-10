@@ -24,7 +24,7 @@
    * 也可以通过参数配置模板
    *  以默认配置为优先，以用户配置为覆盖
   */
-  var compiled = _.template("hello {{name}}, 年龄: {{age}}", {
+  var compiled = _.template("hello {{name}}, <%- <div></div> %>, 年龄: {{age}}", {
     interpolate: /\{\{([\s\S]+?)\}\}/g,
   });
 
