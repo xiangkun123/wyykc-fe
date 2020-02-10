@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .last-item {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+</body>
+</html>
+<script src="./underscore.1.0.16.js"></script>
+<script type="text/template" id="tpl">
+  <ul class="list">
+    <% obj.forEach(function(ele, idx, obj) { %>
+      <% if (idx === obj.length - 1) { %>
+        <li class="last-item"><%= ele.name %></li>  
+      <% } else { %>
+        <li><%= ele.name %></li>
+    <% } }) %>
+  </ul>
+</script>
+<script>
+
+  // 模拟数据
+  var data = [{
+    name: "apple"
+  }, {
+    name: "orange"
+  }, {
+    name: "peach"
+  }];
+
+  var compiled = _.template(document.getElementById("tpl").innerHTML);
+  var str = compiled(data);
+  document.querySelector("div").innerHTML = str;
+</script>

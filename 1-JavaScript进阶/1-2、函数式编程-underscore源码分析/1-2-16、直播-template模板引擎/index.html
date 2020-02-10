@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./underscore.1.0.16.js"></script>
+<script>
+
+  /**
+   * 模板函数  标识符 {{  }}  <% %>
+   * 
+   * 默认模板
+   *  <%= %> 插入变量 interpolate
+   *  <%- %> HTML转义 escape
+   *  <% %> 执行任意的JavaScript代码 evalute
+   * 
+   * 也可以通过参数配置模板
+   *  以默认配置为优先，以用户配置为覆盖
+  */
+  var compiled = _.template("hello {{name}}, 年龄: {{age}}", {
+    interpolate: /\{\{([\s\S]+?)\}\}/g,
+  });
+
+  var data = {
+    name: "max",
+    age: 23
+  };
+
+  //数据绑定，通过 with(data){"hello: {{name}}"}  => name == data.name
+  var result = compiled(data);
+  console.log(result);
+</script>
+

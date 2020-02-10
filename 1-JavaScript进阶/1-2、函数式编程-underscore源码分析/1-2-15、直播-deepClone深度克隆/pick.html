@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./underscore.1.0.15.js"></script>
+
+<script>
+
+  var obj = {
+    name: 'max',
+    age: 40,
+    id: 1
+  }
+
+  // _.pick 白名单：返回一个object副本，只过滤出keys参数指定的属性值
+  // 传多参数，字符串形式
+  // var obj = _.pick(obj, 'name', 'age');
+
+  // 传入回调函数形式
+  var obj = _.pick(obj, function (value, key, object) {
+    return _.isString(value);
+  });
+  console.log(obj);
+
+</script>

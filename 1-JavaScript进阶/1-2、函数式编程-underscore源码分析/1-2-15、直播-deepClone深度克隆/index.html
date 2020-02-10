@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script src="./underscore.1.0.15.js"></script>
+<script>
+
+  var family = {
+    data: {
+      name: 'max'
+    }
+  };
+
+  // 克隆clone 克隆一个obj对象的副本
+  // var cloned = _.clone(family);
+  // cloned.data.age = 23;       // 修改cloned.data上的属性
+  // console.log(cloned);
+  // console.log(family);        // family也被修改了
+  // console.log(cloned.data === family.data);    // => true
+
+  // 深度克隆一个obj对象的副本
+  var deepcloned = _.deepClone(family);
+  deepcloned.data.age = 24; 
+  console.log(deepcloned);
+  console.log(family);
+  console.log(deepcloned.data === family.data);   // => false
+
+  var arr = [1,[2]];
+  var arr2 = _.deepClone(arr);
+  arr2[1][0] = 3;
+  console.log(arr);
+  console.log(arr2);
+
+</script>
