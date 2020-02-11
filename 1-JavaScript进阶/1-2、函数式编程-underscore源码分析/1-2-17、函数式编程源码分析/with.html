@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+
+  // with语句的一个问题
+  var count = 1;
+
+  function foo() {
+    var obj = {
+      count: 2,
+    }
+    with(obj) {
+      var count = 3;
+    }
+    console.log(obj.count);     // 2
+    console.log(count);         // 1
+  }
+  foo();
+
+</script>
