@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body></body>
+</html>
+<script src="https://cdn.bootcss.com/require.js/2.3.6/require.js"></script>
+<script>
+	// 配置项
+	require.config({
+		paths: {
+			a: "./a", // 模块短名称
+			b: "./b",
+		},
+	});
+
+	// 启动模块加载器，异步加载模块
+	require(["a", "b"], function(a, b) {
+		console.log(a);
+		console.log(b);
+	});
+</script>
