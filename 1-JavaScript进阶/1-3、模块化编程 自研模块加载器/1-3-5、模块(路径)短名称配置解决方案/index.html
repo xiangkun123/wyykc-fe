@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body></body>
+</html>
+<!-- <script src="https://cdn.bootcss.com/seajs/3.0.3/sea.js"></script> -->
+<script src="./startUp.js"></script>
+<script>
+	// 配置
+	startUp.config({
+		// alias: {
+		// 	a: "common/js/a.js",
+		// 	b: "common/js/b.js",
+		// },
+		paths: {
+			common: "common/js",
+		},
+		preload: []
+	});
+
+	// 启动模块加载器
+	startUp.use(["common/a", "common/b"], function(a, b) {
+		console.log(a);
+		console.log(b);
+		console.log("startUp....");
+	});
+</script>
