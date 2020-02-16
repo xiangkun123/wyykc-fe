@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>密码校验</title>
+</head>
+
+<body>
+  <input type="text" id="ipt" onblur="check()">
+  <input type="text" id="ipt2" onblur="check2()">
+</body>
+
+</html>
+<script>
+  /**
+   * 解法一：
+   */
+  function check() {
+    const reg = /((?=.*[0-9])(?=.*[a-z])|(?=.*[0-9])(?=.*[A-Z])|(?=.*[a-z])(?=.*[A-Z]))^[0-9A-Za-z]{6,12}$/
+    const iptValue = ipt.value
+    console.log(reg.test(iptValue))
+  }
+
+  /**
+   * 解法二：
+   */
+  function check2() {
+    const reg = /(?!^[0-9]{6,12}$)(?!^[a-z]{6,12}$)(?!^[A-Z]{6,12}$)^[0-9A-Za-z]{6,12}$/
+    const iptValue = ipt2.value
+    console.log(reg.test(iptValue))
+  }
+</script>

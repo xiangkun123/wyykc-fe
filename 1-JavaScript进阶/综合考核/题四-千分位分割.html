@@ -1,0 +1,14 @@
+<script>
+  const num1 = 12345678
+  const num2 = 123456789
+
+  function splitNum(number) {
+    const string = number + ''
+    const reg = /(?!^)(?=(\d{3})+$)/g
+    return string.replace(reg, ',')
+  }
+  const result1 = splitNum(num1)
+  const result2 = splitNum(num2)
+  console.log(result1);
+  console.log(result2);
+</script>

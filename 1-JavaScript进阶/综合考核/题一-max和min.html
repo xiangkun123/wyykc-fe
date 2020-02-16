@@ -1,0 +1,25 @@
+<script>
+  const arr = [15, 16, 17, 14, 11, 12, 13, 18, 19, 20]
+
+  function findMaxAndMin(array) {
+    let min = array[0];
+    let max = array[0];
+    array.reduce((prev, curr, currIndex) => {
+      if (curr < min) {
+        min = curr
+      }
+      if (curr > max) {
+        max = curr
+      }
+    })
+    return {
+      min,
+      max
+    }
+  }
+  const {
+    min,
+    max
+  } = findMaxAndMin(arr)
+  console.log(min, max)
+</script>

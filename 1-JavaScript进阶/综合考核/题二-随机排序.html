@@ -1,0 +1,46 @@
+<script>
+  const arr = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+
+  /**
+   * 方法一：sequence1()
+   * 思路：遍历数组，每一次遍历生成一个随机下标randIndex，让当前下标index和随机下标randIndex的值互换位置
+   */
+  function sequence1(array) {
+    const len = array.length
+    array.forEach((item, index) => {
+      const randIndex = Math.floor(Math.random() * len);
+      [array[index], array[randIndex]] = [array[randIndex], array[index]]
+    })
+    return array
+  }
+  console.log(sequence1(arr));
+
+
+
+  /**
+   * 方法二：sequence2()
+   * 思路：通过sort+random的方法,每一次遍历都生成一个随机数，比较随机数和0.5的大小来决定是否互换数值的位置
+   * 缺点：sort的随机方法，当数组的数据量很大的时候，每个元素仍然有很大机率在它原来的位置附近出现
+   */
+  function sequence2(array) {
+    return array.sort(() => Math.random() - 0.5)
+  }
+  console.log(sequence2(arr))
+
+
+
+  /**
+   * 方法三：sequence3()
+   * 思路：洗牌算法Fisher_Yates。和方法一类似，但是每一次的随机范围递减。
+   */
+  function sequence3(array) {
+    let i = array.length
+    while (i) {
+      const j = Math.floor(Math.random() * i--);
+      [arr[j], arr[i]] = [arr[i], arr[j]]
+    }
+    return array
+  }
+  console.log(sequence3(arr))
+</script>
