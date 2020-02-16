@@ -1,0 +1,31 @@
+<script>
+    
+    /**
+     * 修改REQUIRE_RE正则或补充代码。使得console.log(m2) 不会输出"c.js"，
+     * 目标：剔除掉正则对于注释中require("c.js")调用参数的捕获
+    */
+    function fn(require, exports, module) {
+        /* require("c.js")  */
+        /*
+         * require("d.js")
+        */
+        var age = "30";
+        var b = require("b.js");
+        exports.age = age;
+    }
+
+    var str = fn.toString();
+    var NO_REQUIRE_RE = /\/\*[\s\*]*\brequire\s*\(\s*(["'])(.+?)\1\s*\)[\s\*]*\//g;
+    var REQUIRE_RE = /\brequire\s*\(\s*(["'])(.+?)\1\s*\)/g;
+    var filter = [];
+    
+    str.replace(NO_REQUIRE_RE, function (no_context, no_m1, no_m2) {
+        filter.push(no_m2);
+    });
+    str.replace(REQUIRE_RE, function (context, m1, m2) {
+        if(filter.indexOf(m2) === -1) {
+            console.log(m2);
+        }
+    });
+
+</script>

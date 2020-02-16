@@ -1,0 +1,24 @@
+<!-- 
+    题目：
+        假定在我们的工程中，已经 占据 了 _ 对象，那么，之后我们引入 underscore，_ 就会被 underscore 夺走，
+        请给underscore扩展一个noConflict方法放弃Underscore 的控制变量"_"，返回Underscore 对象的引用。
+    思路：
+        1、在 underscore.js 的闭包中顶部先获取到外部的 ‘_’ 变量，保存为 previousUnderscore
+        2、在调用 _.noConflict() 方法时，把 previousUnderscore 值赋值给外部的 ‘_’ 变量，并且返回让该方法返回Underscore 对象的引用
+ -->
+<script>
+    var _ = {
+        owner: 'max'
+    };
+</script>
+<script src="./underscore.1.3.js"></script>
+<script>
+
+    console.log(_);                 // underscore引用
+
+    var underscore = _.noConflict();
+
+    console.log(_.owner);           // max
+    console.log(underscore);       // underscore引用
+
+</script>

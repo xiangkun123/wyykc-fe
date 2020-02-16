@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单验证</title>
+    <style>
+        .error-tip{
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <p><label for="">身份证号码验证: </label><input type="text" id="idCard"></p>
+        <p><label for="">手机电话号码: </label><input type="text" id="phone"></p>
+        <p><label for="">电子邮箱验证: </label><input type="text" id="email"></p>
+        <p><label for="">最大值/最小值验证: </label><input type="text" id="number"></p>
+        <p><input type="button" value="提交" id="submit"></p>
+    </form>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+    var regExpRule = {
+        idCard: {
+            reg: /(^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}$)/,
+            text: '请输入正确的身份证号码'
+        },
+        phone: {
+            reg: /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/,
+            text: '请输入正确的手机号码'
+        },
+        email: {
+            reg: /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/,
+            text: '请输入正确的邮箱地址'
+        }
+    }
+
+    $.extend({
+        validator: {
+            RegObj: {},
+            addMethod: function (regName, callback, message) {
+                this.RegObj[regName] = {
+                    callback: callback,
+                    message: message
+                };
+            }
+        }
+    })
+
+    $.fn.extend({
+        validate: function(opt) {
+            // 默认的值
+            var defaultOption = {
+                defaultEvent: 'change'
+            }
+
+            // 判断input输入框触发事件名称是否合法，不合法的置为默认值change
+            var eventArr = ['change', 'blur', 'focus', 'input'];
+            if(eventArr.indexOf(opt.defaultEvent) === -1) {
+                opt.defaultEvent = 'change'
+            }
+            
+            // 合并配置项
+            opt = $.extend(defaultOption, opt);
+
+            // 查找所有的input
+            var $iptList = $(this).find('input');
+            
+            // 遍历所有的input
+            $iptList.each(function(idx, el) {
+                $(el)[opt.defaultEvent](function(e) {
+                    var ruleObj = opt.rules[e.target.id];
+
+                    // 当前input是否有定义校验规则
+                    if(ruleObj) {
+                        var keys = Object.keys(ruleObj);
+                        var regResult;
+
+                        $(el).siblings('.error-tip').remove();
+
+                        // 遍历每一项校验规则
+                        $.each(keys, function(index, value) {
+                            // required 必填校验
+                            if(value === 'required' && ruleObj[value] == true && !$(el).val()) {
+                                $(el).parent().append('<span class="error-tip">此项是必填项</span>');return false;
+                            }
+
+                            // 最大值/最小值验证
+                            if(value === 'max' && (ruleObj[value] < $(el).val()) ) {
+                                $(el).parent().append('<span class="error-tip">最大值不大于' + ruleObj[value] + '</span>');return false;
+                            }
+                            if(value === 'min' && (ruleObj[value] > $(el).val()) ) {
+                                $(el).parent().append('<span class="error-tip">最小值不小于' + ruleObj[value] + '</span>');return false;
+                            }
+
+                            // 自定义的校验规则
+                            if($.validator.RegObj[value]) {
+                                regResult = $.validator.RegObj[value].callback.call(this, $(el).val(), el);
+                                if(!regResult) {
+                                    $(el).parent().append('<span class="error-tip">' + $.validator.RegObj[value].message + '</span>');return false;
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    });
+
+    $(function() {
+
+        // 添加校验规则
+        // 身份证
+        $.validator.addMethod('isCard', function(value, ele) {
+            return regExpRule.idCard.reg.test(value);
+        }, regExpRule.idCard.text);
+
+        // 手机
+        $.validator.addMethod('isPhone', function(value, ele) {
+            return regExpRule.phone.reg.test(value);
+        }, regExpRule.phone.text);
+
+        // 邮箱
+        $.validator.addMethod('isEmail', function(value, ele) {
+            return regExpRule.email.reg.test(value);
+        }, regExpRule.email.text);
+
+        var valid = $("form").validate({
+            //自定义校验触发事件
+            defaultEvent: "blur",
+            rules: {
+                idCard: {
+                    required: true,
+                    isCard: true
+                },
+                phone: {
+                    required: true,
+                    isPhone: true,
+                },
+                email: {
+                    required: true,
+                    isEmail: true,
+                },
+                number: {
+                    required: true,
+                    min: 2,
+                    max: 10
+                }
+            }
+        });
+    })
+
+
+</script>

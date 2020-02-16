@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>数据校验插件开发</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: "微软雅黑";
+			}
+
+			form {
+				width: 800px;
+				border: 1px solid #ddd;
+				margin: 50px auto 0;
+				padding: 30px;
+			}
+		</style>
+		<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<form>
+			<div class="form-group">
+				<label for="exampleInputEmail1">邮箱</label>
+				<input type="email" class="form-control" id="exampleInputEmail1" placeholder="请输入合法邮箱" data-dv-email="true"
+				 data-dv-email-error="请输入正确的邮箱地址[**@**.***]">
+			</div>
+
+			<div class="form-group">
+				<label for="exampleInputPassword1">手机号码</label>
+				<input type="text" class="form-control" placeholder="请输入合法手机号码" data-dv-mobile="true">
+			</div>
+
+			<div class="form-group">
+				<label for="exampleInputPassword1">密码</label>
+				<input type="password" class="form-control" placeholder="请输入有效密码" data-dv-password="true">
+			</div>
+
+			<div class="form-group">
+				<label for="exampleInputPassword1">座机号码</label>
+				<input type="text" class="form-control" placeholder="请输入有效座机号码" data-dv-landline="true" data-dv-landline-error="座机号码由区号+座机号组成[区号-座机号]">
+			</div>
+			
+			<div class="form-group">
+				<label for="exampleInputPassword1">身份证</label>
+				<input type="text" class="form-control" placeholder="请输入有效座机号码" 
+				 data-dv-idcard="true"
+				 data-dv-idcard-error="请输入中国大陆身份证号码"
+				 >
+			</div>
+			<button type="submit" class="btn btn-default">注册</button>
+		</form>
+
+		<script type="text/javascript" src="js/jquery-2.2.4.js"></script>
+		<script src="js/jQuery.validate.js"></script>
+		<script type="text/javascript">
+			/*
+			 has-success  成功
+			 has-error    失败
+			*/
+
+			//扩展性    弹性     接口  扩展  弹性    
+			//可配置
+			//扩展插件  定制功能   (轻量级)
+
+			//思考  =>   硬编码    软编码     命令式代码 变成    配置
+
+
+			//编写风格  (自定义属性)  data-xxx   (配置) data-dv-xxx    (dv 标识)
+			//用户的心智能力
+
+			$("form").validate({
+				//来修改配置
+				// initEvent: "blur"
+
+			})
+
+			$.fn.validate.extendRules({
+				//功能的扩展  弹性
+				idcard: function() { // this
+					return /^\d{18}$/.test(this.val());
+				}
+			});
+			//onchange    onblur   oninput
+		</script>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+<script>
+
+  /**
+  * 题目：
+        有一个数组[NaN ,1,21,32,NaN,41,5]，请编写函数，将里面的NaN成员剔除
+  * 思路：
+        通过toString.call() 方法过滤掉不是 Number 类型的值；通过 !isNaN() 把 NaN 也过滤掉；剩下的就是数字；
+  */
+  var arr1 = [NaN, 1, 21, 32, NaN, 41, 5];
+  function filterNaN(arr) {
+      var i=0;
+      var res = [];
+      for (;i<arr.length;i++){
+          if(toString.call(arr[i]) == "[object Number]" && (!isNaN(arr[i])) ){
+              res.push(arr[i]);
+      }
+    }
+    return res;
+  }
+  var res = filterNaN(arr1);
+  console.log(res);
+
+</script>

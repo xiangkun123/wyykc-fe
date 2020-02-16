@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片懒加载</title>
+    <style>
+        #photo-list{
+            margin-top: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div id="photo-list">
+        <p>
+            <img src="" alt="loading" data-url="http://www.touxiang.cn/uploads/20140115/15-061336_454.jpg">
+        </p>
+        <p>
+            <img src="" alt="loading" data-url="http://img.duoziwang.com/2016/10/02/1505485772.jpg">
+        </p>
+        <p>
+            <img src="" alt="loading" data-url="http://www.touxiang.cn/uploads/20140115/15-061336_454.jpg">
+        </p>
+        <p>
+            <img src="" alt="loading" data-url="http://img.duoziwang.com/2016/10/02/1505485772.jpg">
+        </p>
+        <p>
+            <img src="" alt="loading" data-url="http://www.touxiang.cn/uploads/20140115/15-061336_454.jpg">
+        </p>
+        <p>
+            <img src="" alt="loading" data-url="http://www.touxiang.cn/uploads/20140115/15-061336_454.jpg">
+        </p>
+        <p>
+            <img src="" alt="loading" data-url="http://www.touxiang.cn/uploads/20140115/15-061336_454.jpg">
+        </p>
+        <p>
+            <img src="" alt="loading" data-url="http://www.touxiang.cn/uploads/20140115/15-061336_454.jpg">
+        </p>
+    </div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+    // 扩展jquery方法
+    $.fn.extend({
+        lazyLoad: function() {
+
+            var num = 0;
+            var $imgList = $(this).find('img');
+
+            // 浏览器窗口高度
+            var viewHeight = $(window).height();
+            // 浏览器滚动条高度
+            var scrollHeight = $(document).scrollTop();
+            
+            $imgList.each(function(idx, el) {
+                if( num == $imgList.length ) return;
+                if( $(el).offset().top < (viewHeight + scrollHeight) && $(el).attr('data-url') ) {
+                    $(el).attr('src', $(el).attr('data-url'));
+                    num++;
+                }
+            });
+        }
+    });
+
+    $(function() {
+        $('#photo-list').lazyLoad();
+        $(document).scroll(function() {
+            $('#photo-list').lazyLoad();
+        });
+    });
+
+</script>
