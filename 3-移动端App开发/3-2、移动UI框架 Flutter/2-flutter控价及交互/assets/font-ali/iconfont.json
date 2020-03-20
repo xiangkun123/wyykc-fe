@@ -1,0 +1,79 @@
+{
+  "id": "1357216",
+  "name": "react-ui",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "8106210",
+      "name": "bluetoothon",
+      "font_class": "bluetoothon",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "8106215",
+      "name": "child",
+      "font_class": "child",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
+      "icon_id": "8106218",
+      "name": "DND_mode",
+      "font_class": "DND_mode",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "8106225",
+      "name": "brightness",
+      "font_class": "brightness",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "8106226",
+      "name": "musiclist",
+      "font_class": "musiclist",
+      "unicode": "e69c",
+      "unicode_decimal": 59036
+    },
+    {
+      "icon_id": "8106228",
+      "name": "favoriteslist",
+      "font_class": "favoriteslist",
+      "unicode": "e69b",
+      "unicode_decimal": 59035
+    },
+    {
+      "icon_id": "7119846",
+      "name": "首页",
+      "font_class": "shouye",
+      "unicode": "e73d",
+      "unicode_decimal": 59197
+    },
+    {
+      "icon_id": "7120071",
+      "name": "药品",
+      "font_class": "yaopin",
+      "unicode": "e73f",
+      "unicode_decimal": 59199
+    },
+    {
+      "icon_id": "7120351",
+      "name": "用药",
+      "font_class": "yongyao",
+      "unicode": "e741",
+      "unicode_decimal": 59201
+    },
+    {
+      "icon_id": "7120353",
+      "name": "喜欢",
+      "font_class": "xihuan",
+      "unicode": "e742",
+      "unicode_decimal": 59202
+    }
+  ]
+}
