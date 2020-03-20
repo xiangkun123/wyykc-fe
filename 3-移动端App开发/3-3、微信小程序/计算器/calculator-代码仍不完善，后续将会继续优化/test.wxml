@@ -1,0 +1,29 @@
+<!--pages/test/test.wxml-->
+<view class="container" style="height: {{windowHeight}}px;">
+  <view class="show-wrapper" style="height: {{windowHeight-editorHeight}}px;">
+    <text>{{currentNum}}</text>
+  </view>
+  <view class="editor-wrapper">
+    <view class="opera-wrapper" bindtap="_handleTap">
+      <text data-opera="ac">AC</text>
+      <text data-opera="negative">+/-</text>
+      <text data-opera="%">%</text>
+      <text data-opera="÷" class="mr0">÷</text>
+      <text data-opera="1">1</text>
+      <text data-opera="2">2</text>
+      <text data-opera="3">3</text>
+      <text data-opera="+" class="mr0">+</text>
+      <text data-opera="4">4</text>
+      <text data-opera="5">5</text>
+      <text data-opera="6">6</text>
+      <text data-opera="-" class="mr0">-</text>
+      <text data-opera="7">7</text>
+      <text data-opera="8">8</text>
+      <text data-opera="9">9</text>
+      <text data-opera="x" class="mr0">×</text>
+      <text data-opera="0" class="mulit">0</text>
+      <text data-opera=".">.</text>
+      <text data-opera="=" class="mr0">=</text>
+    </view>
+  </view>
+</view>

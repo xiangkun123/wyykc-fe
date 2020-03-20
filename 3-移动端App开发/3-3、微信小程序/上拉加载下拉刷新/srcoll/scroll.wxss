@@ -1,0 +1,32 @@
+/* pages/srcoll/scroll.wxss */
+
+.scroll-wrapper {
+  background-color: #2b333d;
+  padding: 10px;
+  color: #fff;
+}
+
+.li {
+  margin-bottom: 10px;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.li .name {
+  width: 400rpx;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tips{
+  font-size: 14px;
+  color: #f2f2f2;
+  margin-bottom: 20px;
+}
+.loading, .noData{
+  padding: 10px;
+  text-align: center;
+}

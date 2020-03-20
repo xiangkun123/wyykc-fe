@@ -1,0 +1,52 @@
+/* pages/test/test.wxss */
+
+.container{
+  background-color: #000;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.show-wrapper {
+  width: 100%;
+  color: #fff;
+  font-size: 50px;
+  position: relative;
+}
+.show-wrapper text{
+  position: absolute;
+  bottom: 0;
+  right: 20rpx;
+}
+.editor-wrapper{
+  display: flex;
+  /* background: #ccc; */
+  flex-wrap:wrap;
+  justify-content: space-around;
+  padding: 20rpx;
+}
+.opera-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.opera-wrapper text{
+  width: 150rpx;
+  height: 150rpx;
+  background-color: #51504e;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+  line-height: 150rpx;
+  border-radius: 50% 50%;
+  font-size: 24px;
+  color: #fff;
+}
+.opera-wrapper text.mr0{
+  margin-right: 0rpx;
+  background-color: #f7a224;
+}
+.opera-wrapper text.mulit{
+  width: 340rpx;
+  border-radius: 75rpx;
+}

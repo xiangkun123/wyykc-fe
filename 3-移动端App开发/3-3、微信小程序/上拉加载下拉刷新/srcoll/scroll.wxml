@@ -1,0 +1,14 @@
+<!--pages/srcoll/scroll.wxml-->
+
+<!-- 数据加载 -->
+<view class="scroll-wrapper">
+  <view class="tips">
+    <view>下拉刷新，同时会加载 {{step}} 条新数据；上拉加载，模拟分页，每页显示 {{pageSize}} 条数据</view>
+  </view>
+  <view class="li" wx:for="{{showLists}}">
+    <text class="name">{{item.name}}</text>
+    <text class="time">{{item.time}}</text>
+  </view>
+  <view class="loading" wx:if="{{loading}}">加载中....</view>
+  <view class="noData" wx:if="{{nodata}}">已经没有更多了~~~</view>
+</view>
